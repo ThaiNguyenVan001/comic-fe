@@ -1,0 +1,161 @@
+.reader-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+}
+
+.reader-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.reader-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.chapter-info-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+}
+
+.reader-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.reader-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-download {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.btn-download:hover:not(:disabled) {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
+.btn-download:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reader-content {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.pages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.comic-page {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  background: white;
+  display: block;
+  margin: 0 auto;
+}
+
+.page-number {
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+
+.reader-footer {
+  background: #2a2a2a;
+  padding: 20px 0;
+  border-top: 1px solid #444;
+}
+
+.footer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.footer-controls .btn-download {
+  background-color: #28a745;
+  color: white;
+}
+
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ccc;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .reader-controls {
+    flex-direction: column;
+  }
+
+  .chapter-info-header h2 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .reader-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .reader-actions button {
+    flex: 1;
+    max-width: 150px;
+  }
+
+  .pages-container {
+    padding: 10px;
+  }
+
+  .comic-page {
+    border-radius: 4px;
+  }
+}
+

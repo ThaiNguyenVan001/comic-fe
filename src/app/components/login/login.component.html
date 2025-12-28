@@ -1,0 +1,53 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>Đăng Nhập</h1>
+      <p>Chào mừng bạn trở lại SecretMG</p>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email hoặc Tên đăng nhập</label>
+        <input 
+          type="text" 
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Nhập email hoặc tên đăng nhập"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input 
+          type="password" 
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Nhập mật khẩu"
+          required
+        />
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+          <span>Ghi nhớ đăng nhập</span>
+        </label>
+        <a href="#" class="forgot-password">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading">
+        {{ isLoading ? 'Đang đăng nhập...' : 'Đăng Nhập' }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Chưa có tài khoản? <a (click)="goToRegister()">Đăng ký ngay</a></p>
+      <button class="btn-back" (click)="goToHome()">← Về trang chủ</button>
+    </div>
+  </div>
+</div>
+
+

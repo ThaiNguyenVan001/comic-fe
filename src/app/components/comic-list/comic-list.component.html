@@ -1,0 +1,134 @@
+<div class="comic-list-container">
+  <!-- Search Results Section -->
+  <section class="comic-section" *ngIf="isSearchMode">
+    <h2 class="section-title">
+      Kết quả tìm kiếm{{ searchQuery ? ': ' + searchQuery : '' }}
+    </h2>
+    <div *ngIf="searchResults.length === 0 && !loading" class="empty-state">
+      <p>Không tìm thấy truyện nào.</p>
+    </div>
+    <div class="comic-grid" *ngIf="!loading && searchResults.length > 0">
+      <div 
+        *ngFor="let comic of searchResults" 
+        class="comic-card"
+        [routerLink]="['/comic', comic.id]"
+      >
+        <div class="comic-cover-wrapper">
+          <div class="comic-cover">
+            <img [src]="comic.coverImage" [alt]="comic.title" />
+          </div>
+          <div class="update-badge" *ngIf="comic.lastUpdated">
+            <span class="badge-text">{{ comic.lastUpdated }}</span>
+          </div>
+          <button class="bookmark-btn" (click)="toggleBookmark($event, comic.id)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 5C5 3.89543 5.89543 3 7 3H13C14.1046 3 15 3.89543 15 5V16.5C15 16.8978 14.7629 17.2652 14.3827 17.4019C14.0025 17.5386 13.5701 17.4152 13.2929 17.0858L10 13.5L6.70711 17.0858C6.42989 17.4152 5.99753 17.5386 5.61732 17.4019C5.23711 17.2652 5 16.8978 5 16.5V5Z" 
+                    stroke="white" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="comic-info">
+          <h3 class="comic-title">{{ comic.title }}</h3>
+          <p class="comic-chapter" *ngIf="comic.latestChapter">{{ comic.latestChapter }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Truyện Hay Section -->
+  <section class="comic-section" *ngIf="!isSearchMode">
+    <h2 class="section-title">Truyện Hay</h2>
+    <div class="comic-grid" *ngIf="!loading">
+      <div 
+        *ngFor="let comic of popularComics" 
+        class="comic-card"
+        [routerLink]="['/comic', comic.id]"
+      >
+        <div class="comic-cover-wrapper">
+          <div class="comic-cover">
+            <img [src]="comic.coverImage" [alt]="comic.title" />
+          </div>
+          <div class="update-badge" *ngIf="comic.lastUpdated">
+            <span class="badge-text">{{ comic.lastUpdated }}</span>
+          </div>
+          <button class="bookmark-btn" (click)="toggleBookmark($event, comic.id)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 5C5 3.89543 5.89543 3 7 3H13C14.1046 3 15 3.89543 15 5V16.5C15 16.8978 14.7629 17.2652 14.3827 17.4019C14.0025 17.5386 13.5701 17.4152 13.2929 17.0858L10 13.5L6.70711 17.0858C6.42989 17.4152 5.99753 17.5386 5.61732 17.4019C5.23711 17.2652 5 16.8978 5 16.5V5Z" 
+                    stroke="white" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="comic-info">
+          <h3 class="comic-title">{{ comic.title }}</h3>
+          <p class="comic-chapter" *ngIf="comic.latestChapter">{{ comic.latestChapter }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Độc Quyền Truyện QQ Section -->
+  <section class="comic-section" *ngIf="!isSearchMode">
+    <h2 class="section-title">Độc Quyền Truyện QQ</h2>
+    <div class="comic-grid" *ngIf="!loading">
+      <div 
+        *ngFor="let comic of exclusiveComics" 
+        class="comic-card"
+        [routerLink]="['/comic', comic.id]"
+      >
+        <div class="comic-cover-wrapper">
+          <div class="comic-cover">
+            <img [src]="comic.coverImage" [alt]="comic.title" />
+          </div>
+          <div class="update-badge exclusive" *ngIf="comic.lastUpdated">
+            <span class="badge-text">COM {{ comic.lastUpdated }}</span>
+          </div>
+          <button class="bookmark-btn" (click)="toggleBookmark($event, comic.id)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 5C5 3.89543 5.89543 3 7 3H13C14.1046 3 15 3.89543 15 5V16.5C15 16.8978 14.7629 17.2652 14.3827 17.4019C14.0025 17.5386 13.5701 17.4152 13.2929 17.0858L10 13.5L6.70711 17.0858C6.42989 17.4152 5.99753 17.5386 5.61732 17.4019C5.23711 17.2652 5 16.8978 5 16.5V5Z" 
+                    stroke="white" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="comic-info">
+          <h3 class="comic-title">{{ comic.title }}</h3>
+          <p class="comic-chapter" *ngIf="comic.latestChapter">{{ comic.latestChapter }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Truyện Mới Cập Nhật Section -->
+  <section class="comic-section" *ngIf="!isSearchMode">
+    <h2 class="section-title">Truyện Mới Cập Nhật</h2>
+    <div class="comic-grid" *ngIf="!loading">
+      <div 
+        *ngFor="let comic of newComics" 
+        class="comic-card"
+        [routerLink]="['/comic', comic.id]"
+      >
+        <div class="comic-cover-wrapper">
+          <div class="comic-cover">
+            <img [src]="comic.coverImage" [alt]="comic.title" />
+          </div>
+          <div class="update-badge" *ngIf="comic.lastUpdated">
+            <span class="badge-text">{{ comic.lastUpdated }}</span>
+          </div>
+          <button class="bookmark-btn" (click)="toggleBookmark($event, comic.id)">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 5C5 3.89543 5.89543 3 7 3H13C14.1046 3 15 3.89543 15 5V16.5C15 16.8978 14.7629 17.2652 14.3827 17.4019C14.0025 17.5386 13.5701 17.4152 13.2929 17.0858L10 13.5L6.70711 17.0858C6.42989 17.4152 5.99753 17.5386 5.61732 17.4019C5.23711 17.2652 5 16.8978 5 16.5V5Z" 
+                    stroke="white" stroke-width="1.5" fill="none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="comic-info">
+          <h3 class="comic-title">{{ comic.title }}</h3>
+          <p class="comic-chapter" *ngIf="comic.latestChapter">{{ comic.latestChapter }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="loading">
+    Đang tải...
+  </div>
+</div>

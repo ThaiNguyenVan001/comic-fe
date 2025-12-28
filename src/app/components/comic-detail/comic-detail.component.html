@@ -1,0 +1,60 @@
+<div class="container">
+  <button class="btn btn-secondary back-btn" (click)="goBack()">
+    ← Quay lại
+  </button>
+
+  <div *ngIf="loading" class="loading">
+    Đang tải...
+  </div>
+
+  <div *ngIf="!loading && !comic" class="error-state">
+    <p>Không tìm thấy truyện.</p>
+  </div>
+
+  <div *ngIf="!loading && comic" class="comic-detail">
+    <div class="comic-header">
+      <div class="comic-cover-large">
+        <img [src]="comic.coverImage" [alt]="comic.title" />
+      </div>
+      <div class="comic-meta">
+        <h1 class="comic-title-large">{{ comic.title }}</h1>
+        <p class="comic-author-large">
+          <strong>Tác giả:</strong> {{ comic.author }}
+        </p>
+        <div class="comic-genres" *ngIf="comic.genres && comic.genres.length > 0">
+          <strong>Thể loại:</strong>
+          <span class="genre-tag" *ngFor="let genre of comic.genres" (click)="searchByGenre(genre)">{{ genre }}</span>
+        </div>
+        <div class="comic-summary">
+          <h3>Tóm tắt nội dung:</h3>
+          <p>{{ comic.summary }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapters-section">
+      <h2 class="section-title">Danh sách chương</h2>
+      <div *ngIf="comic.chapters.length === 0" class="no-chapters">
+        Chưa có chương nào.
+      </div>
+      <div class="chapters-list" *ngIf="comic.chapters.length > 0">
+        <div 
+          *ngFor="let chapter of comic.chapters; let i = index"
+          class="chapter-item card"
+          [routerLink]="['/comic', comic.id, 'chapter', chapter.id]"
+        >
+          <div class="chapter-number">{{ chapter.number }}</div>
+          <div class="chapter-info">
+            <h4 class="chapter-title">{{ chapter.title }}</h4>
+            <p class="chapter-pages">{{ chapter.pages.length }} trang</p>
+          </div>
+          <div class="chapter-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment Section -->
+    <app-comment [comicId]="comic.id"></app-comment>
+  </div>
+</div>
+

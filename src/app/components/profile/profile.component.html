@@ -1,0 +1,66 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>Thông Tin Tài Khoản</h1>
+    <button class="btn btn-secondary" (click)="logout()">Đăng Xuất</button>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-card">
+      <div class="avatar-section">
+        <div class="avatar">
+          <img [src]="user?.avatar || 'https://via.placeholder.com/150'" [alt]="user?.username" />
+        </div>
+        <h2>{{ user?.username }}</h2>
+        <p>{{ user?.email }}</p>
+      </div>
+
+      <div class="profile-actions" *ngIf="!isEditing">
+        <button class="btn btn-primary" (click)="startEdit()">
+          ✏️ Chỉnh Sửa Thông Tin
+        </button>
+      </div>
+
+      <div class="edit-form" *ngIf="isEditing">
+        <h3>Chỉnh Sửa Thông Tin</h3>
+        <form (ngSubmit)="saveProfile()">
+          <div class="form-group">
+            <label>Tên đăng nhập</label>
+            <input type="text" [(ngModel)]="editForm.username" name="username" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="editForm.email" name="email" />
+          </div>
+          <div class="form-group">
+            <label>Ảnh đại diện (URL)</label>
+            <input type="text" [(ngModel)]="editForm.avatar" name="avatar" placeholder="https://..." />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Hủy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <h3>Đổi Mật Khẩu</h3>
+      <form (ngSubmit)="changePassword()">
+        <div class="form-group">
+          <label>Mật khẩu hiện tại</label>
+          <input type="password" [(ngModel)]="oldPassword" name="oldPassword" />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu mới</label>
+          <input type="password" [(ngModel)]="newPassword" name="newPassword" />
+        </div>
+        <div class="form-group">
+          <label>Xác nhận mật khẩu mới</label>
+          <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" />
+        </div>
+        <button type="submit" class="btn btn-primary">Đổi Mật Khẩu</button>
+      </form>
+    </div>
+  </div>
+</div>
+

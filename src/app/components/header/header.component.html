@@ -1,0 +1,83 @@
+<header class="main-header">
+  <div class="header-top">
+    <div class="header-container">
+      <div class="logo-section">
+        <a routerLink="/" class="logo-link">
+          <div class="logo-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="14" fill="white"/>
+              <path d="M12 10 L20 10 L20 14 L12 14 Z" fill="#FF6B35"/>
+              <path d="M12 18 L20 18 L20 22 L12 22 Z" fill="#FF6B35"/>
+            </svg>
+          </div>
+          <span class="logo-text">SecretMG</span>
+        </a>
+      </div>
+
+      <div class="header-center">
+        <form class="search-container" (submit)="onSearch($event)">
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Bạn muốn tìm truyện gì"
+            [(ngModel)]="searchQuery"
+            (keyup)="onSearchInput($event)"
+            name="search"
+          />
+          <button type="submit" class="search-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="header-right">
+        <button class="theme-toggle" title="Chuyển đổi theme" (click)="toggleTheme()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2V4M10 16V18M4 10H2M18 10H16M15.657 4.343L14.243 5.757M5.757 14.243L4.343 15.657M15.657 15.657L14.243 14.243M5.757 5.757L4.343 4.343M14 10C14 12.2091 12.2091 14 10 14C7.79086 14 6 12.2091 6 10C6 7.79086 7.79086 6 10 6C12.2091 6 14 7.79086 14 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="btn-register" (click)="navigateTo('/register')" *ngIf="!isLoggedIn">Đăng ký</button>
+        <button class="btn-login" (click)="navigateTo('/login')" *ngIf="!isLoggedIn">Đăng nhập</button>
+        <button class="btn-profile" (click)="navigateTo('/profile')" *ngIf="isLoggedIn">Tài Khoản</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-bottom">
+    <div class="header-container">
+      <nav class="main-nav">
+        <a routerLink="/" routerLinkActive="active" class="nav-link" (click)="goToHome()">Trang Chủ</a>
+        <div class="nav-dropdown" (mouseenter)="toggleGenreDropdown()" (mouseleave)="closeDropdowns()">
+          <a class="nav-link">Thể Loại <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu" *ngIf="showGenreDropdown">
+            <a class="dropdown-item" (click)="selectGenre('action')">Hành Động</a>
+            <a class="dropdown-item" (click)="selectGenre('romance')">Lãng Mạn</a>
+            <a class="dropdown-item" (click)="selectGenre('comedy')">Hài Hước</a>
+            <a class="dropdown-item" (click)="selectGenre('fantasy')">Fantasy</a>
+            <a class="dropdown-item" (click)="selectGenre('drama')">Drama</a>
+            <a class="dropdown-item" (click)="selectGenre('adventure')">Phiêu Lưu</a>
+            <a class="dropdown-item" (click)="selectGenre('supernatural')">Siêu Nhiên</a>
+            <a class="dropdown-item" (click)="selectGenre('horror')">Kinh Dị</a>
+          </div>
+        </div>
+        <div class="nav-dropdown" (mouseenter)="toggleRankingDropdown()" (mouseleave)="closeDropdowns()">
+          <a class="nav-link">Xếp Hạng <span class="dropdown-arrow">▼</span></a>
+          <div class="dropdown-menu" *ngIf="showRankingDropdown">
+            <a class="dropdown-item" (click)="selectRanking('day')">Top Ngày</a>
+            <a class="dropdown-item" (click)="selectRanking('week')">Top Tuần</a>
+            <a class="dropdown-item" (click)="selectRanking('month')">Top Tháng</a>
+            <a class="dropdown-item" (click)="selectRanking('year')">Top Năm</a>
+          </div>
+        </div>
+        <a routerLink="/" [queryParams]="{gender: 'female'}" class="nav-link">Con Gái</a>
+        <a routerLink="/" [queryParams]="{gender: 'male'}" class="nav-link">Con Trai</a>
+        <a routerLink="/" class="nav-link" (click)="focusSearch($event)">Tìm Truyện</a>
+        <a routerLink="/profile" class="nav-link" *ngIf="isLoggedIn">Tài Khoản</a>
+        <a href="#" class="nav-link">Yêu Cầu Dịch Truyện</a>
+      </nav>
+    </div>
+  </div>
+</header>
+

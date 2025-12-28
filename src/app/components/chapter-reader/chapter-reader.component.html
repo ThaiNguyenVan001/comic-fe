@@ -1,0 +1,83 @@
+<div class="reader-container">
+  <div class="reader-header">
+    <div class="container">
+      <div class="reader-controls">
+        <button class="btn btn-secondary" (click)="goBack()">
+          ← Quay lại
+        </button>
+        <div class="chapter-info-header">
+          <h2>{{ comicTitle }} - {{ chapter?.title }}</h2>
+        </div>
+        <div class="reader-actions">
+          <button class="btn btn-primary" (click)="previousChapter()" [disabled]="!hasPreviousChapter">
+            ← Chương trước
+          </button>
+          <button class="btn btn-primary" (click)="nextChapter()" [disabled]="!hasNextChapter">
+            Chương sau →
+          </button>
+          <button 
+            class="btn btn-download" 
+            (click)="downloadChapter()" 
+            [disabled]="isDownloading || !chapter"
+            title="Tải chương truyện"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 5px;">
+              <path d="M8 11V1M8 11L4 7M8 11L12 7M2 13H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {{ isDownloading ? 'Đang tải...' : 'Tải truyện' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reader-content">
+    <div *ngIf="loading" class="loading">
+      Đang tải chương...
+    </div>
+
+    <div *ngIf="!loading && !chapter" class="error-state">
+      <p>Không tìm thấy chương.</p>
+    </div>
+
+    <div *ngIf="!loading && chapter" class="pages-container">
+      <div 
+        *ngFor="let page of chapter.pages; let i = index"
+        class="page-wrapper"
+      >
+        <img 
+          [src]="page" 
+          [alt]="'Trang ' + (i + 1)"
+          class="comic-page"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+        />
+        <div class="page-number">Trang {{ i + 1 }} / {{ chapter.pages.length }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reader-footer">
+    <div class="container">
+      <div class="footer-controls">
+        <button class="btn btn-secondary" (click)="scrollToTop()">
+          ↑ Lên đầu
+        </button>
+        <button 
+          class="btn btn-download" 
+          (click)="downloadChapter()" 
+          [disabled]="isDownloading || !chapter"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 5px;">
+            <path d="M8 11V1M8 11L4 7M8 11L12 7M2 13H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ isDownloading ? 'Đang tải...' : 'Tải chương' }}
+        </button>
+        <button class="btn btn-primary" (click)="goToComicDetail()">
+          Về trang truyện
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
